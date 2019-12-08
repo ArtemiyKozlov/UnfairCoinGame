@@ -12,5 +12,10 @@
             FirstWinPercentage = percentage;
             MaxSteps = maxSteps;
         }
+
+        public override string ToString()
+        {
+            return $"start with : {StartScore} Alice win probability {FirstWinPercentage}% max steps {MaxSteps}";
+        }
     }
 }

@@ -10,13 +10,14 @@ namespace UnfairCoin
             var step = 0;
             var firstScore = setup.StartScore;
             var secondScore = setup.StartScore;
+            bool looseFirst = false, looseSecons = false;
 
             var random = new Random(Guid.NewGuid().GetHashCode());
 
             while (step < setup.MaxSteps && !result.BothLoose && firstScore < 1000000)
             {
                 var val = random.Next(1, 101);
-                bool looseFirst = false, looseSecons = false;
+                
                 var score = val <= setup.FirstWinPercentage ? 1 : -1;
                 firstScore += score;
                 secondScore -= score;

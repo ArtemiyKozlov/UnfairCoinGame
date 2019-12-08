@@ -8,16 +8,18 @@ namespace UnfairCoin
     {
         static void Main(string[] args)
         {
-            var totalGames = 1000;
+            var totalGames = 100000;
             var games = new Game[totalGames];
             Array.Fill(games, new Game());
             var secondLooseFirst = 0;
             var bothLooseTotal = 0;
             var gamesPlayed = 0;
+            var setUp = new GameSetup(100, 51, 100000);
+            Console.WriteLine(setUp);
 
             Parallel.ForEach(games, game =>
             {
-                var result = game.Start(new GameSetup(20, 51, int.MaxValue / 10));
+                var result = game.Start(setUp);
                 Interlocked.Increment(ref gamesPlayed);
                 if (result.BothLoose)
                 {
@@ -28,13 +30,13 @@ namespace UnfairCoin
                     }
                 }
 
-                Console.Write($" total : {totalGames} Both {bothLooseTotal} Alice {bothLooseTotal - secondLooseFirst} Bob {secondLooseFirst} \r");
+                Console.Write($" played : {gamesPlayed} Both {bothLooseTotal} Alice {bothLooseTotal - secondLooseFirst} Bob {secondLooseFirst} \r");
 
             });
 
 
             var resultMessage =
-                $" total : {totalGames} Both {bothLooseTotal} Alice {bothLooseTotal - secondLooseFirst} Bob {secondLooseFirst}";
+                $" played : {totalGames} Both {bothLooseTotal} Alice {bothLooseTotal - secondLooseFirst} Bob {secondLooseFirst}";
             Console.WriteLine(resultMessage);
         }
     }
